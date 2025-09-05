@@ -4,7 +4,7 @@ import play from '/assets/playCard.png';
 
 function Interprets() {
   const dataArray = data;
-  const pathToImage = "/assets/interprets/";
+  const pathToImage = "listenio/assets/interprets/";
 
 
   return (
