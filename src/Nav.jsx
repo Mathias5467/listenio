@@ -1,9 +1,9 @@
 import './Nav.css';
 import { useState } from 'react';
-import home from "./assets/home.png";
-import heart from "./assets/heart.png";
-import logoIcon from "./assets/logo.svg";
-import searchIcon from "./assets/search.png";
+import home from "/assets/home.png";
+import heart from "/assets/heart.png";
+import logoIcon from "/assets/logo.svg";
+import searchIcon from "/assets/search.png";
 
 function Nav () {
     const [burgerClass, setBurger] = useState("burger-menu");

@@ -1,10 +1,11 @@
 import data from './data/composers.json';
 import './Interprets.css';
-import play from './assets/playCard.png';
+import play from '/assets/playCard.png';
 
 function Interprets() {
   const dataArray = data;
-  const pathToImage = "listenio/src/assets/interprets/"; // public folder
+  const pathToImage = process.env.PUBLIC_URL + "/assets/interprets/";
+
 
   return (
     <div className="content">
