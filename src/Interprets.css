@@ -1,9 +1,13 @@
-.content {
-    padding: 2rem;
+.interprets {
     overflow-y: scroll;
     display: flex;
+    flex-direction: column;
+}
+.content {
+    padding: 2rem;
+    display: flex;
     flex-wrap: wrap;
-    gap: 8% 4%;
+    gap: 2rem 4%;
     justify-content: center;
 }
 
@@ -25,6 +29,7 @@
 }
 .card-title {
     margin-top: 0rem;
+    place-self: center;
 }
 
 .card-button {
@@ -51,6 +56,23 @@
     width: 40%;
 }
 
+.load-button {
+    border: 2px solid #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    place-self: center;
+    width: auto;
+    padding: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: 0.4s;
+    margin-bottom: 3rem;
+}
+.load-button:hover {
+    border: 2px solid #20b1d5;
+    color: #20b1d5;
+}
+
 @media (max-width:862px) {
     .card {
         width: 12rem;
@@ -60,9 +82,15 @@
         right: -3.3rem;
         bottom: 5rem;
     }
+    .card-title {
+        font-size: 1.2rem;
+    }
     .card:hover .card-button {
         bottom: 7.2rem;
         opacity: 1;
+    }
+    .content {
+        gap: 1rem 4%;
     }
 }
 @media (max-width:465px) {
@@ -80,9 +108,5 @@
     .card:hover .card-button {
         bottom: 6.8rem;
         opacity: 1;
-    }
-    .card-title {
-        text-align: center;
-        font-size: 1.3rem;
     }
 }
