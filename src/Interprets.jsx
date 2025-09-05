@@ -1,9 +1,27 @@
 import data from './data/composers.json';
+import './Interprets.css';
+import play from './assets/playCard.png';
 
 function Interprets() {
-    <div class="container">
-        
+  const dataArray = data;
+  const pathToImage = "listenio/src/assets/interprets/"; // public folder
+
+  return (
+    <div className="content">
+      {dataArray.map((interpret, index) => {
+        const fileName = interpret.name.split(" ").join("_").toLowerCase(); // adjust extension
+        return (
+          <div id={fileName} className="card" key={`${interpret.name}-${index}`}>
+            <img className="card-image" src={pathToImage + fileName + ".jfif"} alt={interpret.name} />
+            <h2 className="card-title">{interpret.name}</h2>
+            <div className="card-button">
+                <img className="card-button-img" src={play}></img>
+            </div>
+          </div>
+        );
+      })}
     </div>
+  );
 }
 
 export default Interprets;
