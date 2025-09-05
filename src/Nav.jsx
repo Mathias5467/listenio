@@ -2,6 +2,8 @@ import './Nav.css';
 import { useState } from 'react';
 import home from "./assets/home.png";
 import heart from "./assets/heart.png";
+import logoIcon from "./assets/logo.svg";
+import searchIcon from "./assets/search.png";
 
 function Nav () {
     const [burgerClass, setBurger] = useState("burger-menu");
@@ -25,12 +27,12 @@ function Nav () {
         <div className="nav-container">
             <div className="nav">
                 <div className="nav-logo">
-                    <img alt="logo" src="src/assets/logo.svg"></img>
+                    <img alt="logo" src={logoIcon}></img>
                     <h1>Listenio<small><sup>&copy;</sup></small></h1>
                 </div>
                 <div className={searchDivHide}>
                     <input className="search" type="text" placeholder='Search...'></input>
-                    <img className="search-icon" alt="search" src="src/assets/search.png"></img>
+                    <img className="search-icon" alt="search" src={searchIcon}></img>
                 </div>
                 
                 <div className={burgerClass} id="burger" onClick={clickBurger}>
@@ -42,7 +44,7 @@ function Nav () {
             <div className={hiddenNav}>
                 <div className="nav-hidden-div">
                     <input className="search-hidden" type="text" placeholder='Search...'></input>
-                    <img className="search-icon" alt="search" src="src/assets/search.png"></img>
+                    <img className="search-icon" alt="search" src={searchIcon}></img>
                 </div>
                 <div className="nav-hidden-div">
                     <img className="nav-hidden-img" alt="home" src={home}></img>
