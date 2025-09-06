@@ -1,0 +1,45 @@
+.interpret {
+    display: grid;
+    grid-template-rows: 10rem calc(100% - 10rem);
+}
+.interpret-detail {
+    display: flex;
+    gap: 5%;
+    background: linear-gradient(transparent, 70%, #727272);
+    background-size: 100% 150%;
+    animation: backAnim 5s ease-in-out infinite;
+}
+
+@keyframes backAnim {
+    0% { background-position: 0% 0%;}
+    50%{  background-position: 0% 50%; }
+    100% {  background-position: 0% 0%; }
+}
+
+.interpret-detail > img {
+    height: 90%;
+    border-radius: 50%;
+    margin: 0.5rem 1rem;
+}
+.interpret-detail > h1 {
+    place-self: center;
+    font-size: 3rem;
+    transition: 0.3s;
+}
+.control-panel {
+    position: absolute;
+}
+
+@media (max-width:748px) {
+    .interpret {
+        grid-template-rows: 7rem calc(100% - 7rem);
+    }
+    .interpret-detail > img {
+        height: 90%;
+        border-radius: 50%;
+        margin: 0.5rem 1rem;
+    }
+    .interpret-detail > h1 {
+        font-size: 2rem;
+    }
+}

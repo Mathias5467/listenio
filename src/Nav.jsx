@@ -1,5 +1,6 @@
 import './Nav.css';
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import home from "/assets/home.png";
 import heart from "/assets/heart.png";
 import logoIcon from "/assets/logo.svg";
@@ -26,10 +27,12 @@ function Nav () {
     return(
         <div className="nav-container">
             <div className="nav">
-                <div className="nav-logo">
-                    <img alt="logo" src={logoIcon}></img>
-                    <h1>Listenio<small><sup>&copy;</sup></small></h1>
-                </div>
+                <Link to="/" className="nav-logo-link">
+                    <div className="nav-logo">
+                        <img alt="logo" src={logoIcon}></img>
+                        <h1>Listenio<small><sup>&copy;</sup></small></h1>
+                    </div>
+                </Link>
                 <div className={searchDivHide}>
                     <input className="search" type="text" placeholder='Search...'></input>
                     <img className="search-icon" alt="search" src={searchIcon}></img>
@@ -46,10 +49,10 @@ function Nav () {
                     <input className="search-hidden" type="text" placeholder='Search...'></input>
                     <img className="search-icon" alt="search" src={searchIcon}></img>
                 </div>
-                <div className="nav-hidden-div">
+                <Link to="/" className="nav-hidden-div">
                     <img className="nav-hidden-img" alt="home" src={home}></img>
                     <h2 className="nav-hidden-text">Home</h2>
-                </div>
+                </Link>
                 <div className="nav-hidden-div">
                     <img className="nav-hidden-img" alt="favorite" src={heart}></img>
                     <h2 className="nav-hidden-text">Favorite</h2>
