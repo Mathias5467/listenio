@@ -9,53 +9,31 @@
 }
 
 .nav-hidden {
+    margin-top: 1rem; 
+    width: 90%;
+    margin-inline: 5%;
     box-sizing: border-box;
-    background-color: #151515;
+    background-color: #444444;
+    border-radius: 10px;
     display: grid;
     transform: translateY(-100%);
     transition: 0.5s;
     opacity: 0;
-    z-index: 0;
+    padding-top: 0.5rem;
+    z-index: 1;
 }
 .nav-hidden.show {
     transform: translateY(0%);
     opacity: 1;
 }
-.nav-hidden-div {
-    display: flex;
-    place-items: center;
-    gap: 1rem;
-    background-color: #151515;
-    transition: 0.4s;
-    cursor: pointer;
-    padding: 1rem;
-    box-sizing: border-box;
-}
 .nav-hidden-div:first-child {
     margin-top: 1rem;
 }
-.nav-hidden-div:not(:first-child):hover {
-    box-shadow: inset 0 0 5px #20b1d5;
-}
-.search-hidden {
-    background: transparent;
-    border: 1px solid white;
-    height: 2.2rem;
-    width: 30%;
-    border-radius: 1.3rem;
-    padding-inline: 1rem; 
-    font-size: 1.2rem;
-    transition: 0.3s;
+.nav-hidden-search {
+    height: 0;
+    width: 100%;
 }
 
-
-.nav-hidden-img {
-    height: 2rem;
-    padding-right: 1rem;
-}
-.nav-hidden-text {
-    margin: 0;
-}
 
 .nav {
     background: #151515;
@@ -63,8 +41,40 @@
     border-bottom: 1px solid white;
     display: flex;
     gap: 5%;
-    z-index: 1000;
+    z-index: 2;
 }
+
+
+/*Search list*/
+.search-link {
+    text-decoration: none;
+}
+.search-list {
+    box-sizing: border-box;
+}
+.search-list-item {
+    display: flex;
+    place-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    transition: 0.3s;
+}
+.centered {
+    display: flex;
+    justify-content: center;
+}
+.search-list-item:hover {
+    background: #15151541;
+}
+.search-list-item > img {
+    height: 4rem;
+}
+.search-list-item  > p {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
 
 /*Logo and title*/
 .nav-logo {
@@ -83,6 +93,7 @@
 }
 .nav-logo > h1 {
     margin: 0;
+    transition: 0.3s;
     place-self: center;
 }
 
@@ -94,9 +105,6 @@
     gap: 0.5rem;
     transition: 0.4s;
 }
-.search-div.hidden {
-    opacity: 0;
-}
 .search {
     background: transparent;
     border: 1px solid white;
@@ -106,11 +114,11 @@
     padding-inline: 1rem; 
     font-size: 1.2rem;
     transition: 0.3s;
+    box-sizing: border-box;
 }
-.search:focus, .search-hidden:focus {
-    border: 1px solid #20b1d5;
-    outline: none; 
-    box-shadow: 0 0 15px #20b1d5;
+.search:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ffffff;
 }
 .search-icon {
     width: 2rem;
@@ -141,6 +149,7 @@
     transition: border-color 0.3s ease;
     right: 1rem;
     top: 0.5rem;
+    visibility: hidden;
 }
 
 .stick {
@@ -183,16 +192,19 @@
 
 
 @media (max-width: 748px) {
-    .search-div {
-        opacity: 0;
-    }
     .nav-hidden-text {
         font-size: 1.3rem;
+    }
+    .nav-logo > h1 {
+        font-size: 1.8rem;
+    }
+    .search-div {
+        width: 60%;
     }
     .burger-menu {
         width: 4rem;
         height: 3.5rem; 
-        top: calc(1.5rem / 2);
+        top: 1rem;
     }
     .stick {
         height: 0.4rem;
@@ -203,11 +215,39 @@
     .burger-menu.active-menu .stick:nth-child(3) {
         transform: translateY(-0.9rem) rotate(-45deg);
     }
-    .nav-logo > h1{
-        font-size: 1.5rem;
+}
+@media (max-width: 655px) {
+    .burger-menu {
+        visibility: visible;
     }
-    .nav-logo > img {
-        height: 4rem;
-        padding-block: 0.5rem;
+    .nav-hidden-search {
+        height: 3rem;
+        width: 100%;
+    }
+    .nav-hidden {
+        gap: 0.5rem;
+    }
+    .search-div {
+        opacity: 0;
+        visibility: hidden;
+        justify-self: center;
+        position: absolute;
+        width: 85%;
+        margin-inline: calc(15%/2);
+        transform: translateY(1rem);
+    }
+    .translate-search {
+        transform: translateY(7.35rem);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media (max-width: 590px) {
+    
+    .nav-logo > h1 {
+        visibility: visible;
+        display: inline-block;
+        opacity: 1;
+        font-size: 1.5rem;
     }
 }

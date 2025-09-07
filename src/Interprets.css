@@ -25,13 +25,26 @@
 }
 .card-image {
     width: 90%;
+    height: 88%;
     border-radius: 10px;
+    box-sizing: border-box;
+}
+.favorite-div {
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #ffffff, 40%, #1313e3);
+    width: 90%;
+    height: 88%;
+    display: grid;
+    place-items: center;
+}
+.favorite {
+    width: 50%;
+    height: 50%;
 }
 .card-title {
     margin-top: 0rem;
     place-self: center;
     color: white;
-
 }
 
 .card-button {

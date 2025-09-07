@@ -3,10 +3,10 @@ import './Interprets.css';
 import play from '/assets/playCard.png';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import favoriteIcon from '/assets/heart.png';
 
 function Interprets({ setInterpret }) {
-  console.log("Interprets component rendered");
-  console.log("Data:", data);
+  
   
   const dataArray = data;
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
@@ -32,10 +32,18 @@ function Interprets({ setInterpret }) {
   return (
     <div className="interprets">
       <div className="content">
+        <Link to="/favorite" className="card">
+          <div className="favorite-div">
+            <img className="card-image favorite" src={favoriteIcon} alt="heart"/>
+          </div>
+          <h2 className="card-title">Favorite</h2>
+          <div className="card-button">
+            <img className="card-button-img" src={play} alt="play button" />
+          </div>
+        </Link>
         {dataArray.slice(0, numberOfLoaded).map((interpret, index) => {
           const fileName = interpret.name.split(" ").join("_").toLowerCase();
           const slug = createSlug(interpret.name);
-          console.log("Rendering interpret:", interpret.name, "with slug:", slug);
           
           return (
             <Link
@@ -48,10 +56,6 @@ function Interprets({ setInterpret }) {
                 className="card-image"
                 src={pathToImage + fileName + ".jfif"}
                 alt={interpret.name}
-                onError={(e) => {
-                  console.log("Image failed to load:", e.target.src);
-                  e.target.src = 'https://via.placeholder.com/200x200?text=No+Image';
-                }}
               />
               <h2 className="card-title">{interpret.name}</h2>
               <div className="card-button">
