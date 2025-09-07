@@ -107,6 +107,7 @@
 .search {
     background: transparent;
     border: 1px solid white;
+    color: white;
     height: 2.2rem;
     width: 100%;
     border-radius: 1.3rem;
@@ -133,9 +134,10 @@
 
 /* Burger Menu */
 .burger-menu {
+    width: 4rem;
+    height: 3.5rem; 
+    top: 1rem;
     position: absolute;
-    width: 4.5rem;
-    height: 4rem;
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -147,7 +149,6 @@
     cursor: pointer;
     transition: border-color 0.3s ease;
     right: 1rem;
-    top: 0.5rem;
     visibility: hidden;
 }
 
@@ -210,11 +211,6 @@
     .search-div {
         width: 60%;
     }
-    .burger-menu {
-        width: 4rem;
-        height: 3.5rem; 
-        top: 1rem;
-    }
     .stick {
         height: 0.4rem;
     }
@@ -228,6 +224,9 @@
 @media (max-width: 655px) {
     .burger-menu {
         visibility: visible;
+    }
+    .nav-hidden {
+        gap: 1rem;
     }
     .nav-hidden-search {
         height: 3rem;
