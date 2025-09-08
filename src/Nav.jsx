@@ -1,9 +1,10 @@
 import './Nav.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import logoIcon from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import interpretsData from './data/composers.json';
+import notFoundImage from '/assets/notFound.png'
 
 function Nav() {
     const [burgerClass, setBurger] = useState("burger-menu");
@@ -11,6 +12,7 @@ function Nav() {
     const [searchedTerm, setSearchedTerm] = useState("");
     const [searchTranslate, setSearchTranslate] = useState("search-div");
     const [searchedInterprets, setSearchedInterprets] = useState([]);
+    const shouldCloseRef = useRef(true);
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
     
     useEffect(() => {
@@ -22,7 +24,6 @@ function Nav() {
                 document.activeElement.blur();
             }
         };
-
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -37,22 +38,20 @@ function Nav() {
     };
 
     const searchingPartially = (e) => {
-        const value = e.target.value.toLowerCase();
+        const value = e.target.value;
         setSearchedTerm(value);
 
         if (value !== "") {
             const count = 5;
             setSearchedInterprets(
                 interpretsData
-                    .filter(interpret => (interpret.name).toLowerCase().includes(value))
+                    .filter(interpret => (interpret.name).toLowerCase().includes(value.toLowerCase()))
                     .slice(0, count)
             );
         } else {
             setSearchedInterprets([]);
         }
-        
     };
-
 
     const clickBurger = () => {
         setBurger((prev) =>
@@ -69,20 +68,34 @@ function Nav() {
     }
 
     const focusOn = () => {
+        shouldCloseRef.current = false;
         if (!burgerClass.includes("active-menu")) {
-            setHiddenNav("nav-hidden show");
-            setSearchTranslate("search-div translate-div");
+            setTimeout(() => {
+                setHiddenNav("nav-hidden show");
+                setSearchTranslate("search-div translate-div");
+            }, 500);
         }
     }
 
     const focusOff = () => {
+        shouldCloseRef.current = true;
         setTimeout(() => {
-            setHiddenNav("nav-hidden");
-            setSearchTranslate("search-div");
-            setSearchedTerm("");
-            setSearchedInterprets([]);
-            setBurger("burger-menu");
-        }, 100);
+            if (shouldCloseRef.current) {
+                setHiddenNav("nav-hidden");
+                setSearchTranslate("search-div");
+                setBurger("burger-menu");
+            }
+        }, 200);
+    }
+
+    const handleSearchResultMouseDown = (e) => {
+        // Prevent the input from losing focus when clicking on search results
+        shouldCloseRef.current = false;
+    }
+
+    const handleSearchResultMouseUp = () => {
+        // Allow closing again after the click is complete
+        shouldCloseRef.current = true;
     }
 
     return(
@@ -95,7 +108,17 @@ function Nav() {
                     </div>
                 </Link>
                 <div className={searchTranslate}>
-                    <input value={searchedTerm} id="search" onChange={(e) => searchingPartially(e)} onFocus={focusOn} onBlur={focusOff} className="search" type="text" placeholder='Search...' autoComplete="off" ></input>
+                    <input 
+                        value={searchedTerm} 
+                        id="search" 
+                        onChange={searchingPartially} 
+                        onFocus={focusOn} 
+                        onBlur={focusOff} 
+                        className="search" 
+                        type="text" 
+                        placeholder='Search...' 
+                        autoComplete="off" 
+                    />
                     <img className="search-icon" alt="search" src={searchIcon}></img>
                 </div>
                 
@@ -110,8 +133,9 @@ function Nav() {
 
                 </div>
                 <div className="search-list">
-                    {searchedInterprets.length === 0 ? (
-                        <div className="search-list-item centered"> 
+                    {searchedTerm && searchedInterprets.length === 0 ? (
+                        <div className="search-list-item"> 
+                            <img src={notFoundImage} alt="not found" />
                             <p>No results...</p>
                         </div>
                     ) : (
@@ -120,12 +144,14 @@ function Nav() {
                         const fileName = interpret.name.split(" ").join("_").toLowerCase();
                         return (
                             <Link
-                            className="search-link"
-                            to={`/interpret/${slug}`}  
-                            key={interpret.name + index}
+                                className="search-link"
+                                to={`/interpret/${slug}`}  
+                                key={interpret.name + index}
+                                onMouseDown={handleSearchResultMouseDown}
+                                onMouseUp={handleSearchResultMouseUp}
                             >
                                 <div className="search-list-item"> 
-                                    <img src={pathToImage + fileName + ".jfif"}></img>
+                                    <img src={pathToImage + fileName + ".jfif"} alt={interpret.name} />
                                     <p>{interpret.name}</p>
                                 </div>
                             </Link>
@@ -133,7 +159,6 @@ function Nav() {
                         })
                     )}
                 </div>
-
             </div>
         </div>
     );
