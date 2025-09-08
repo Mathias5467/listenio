@@ -14,17 +14,22 @@ function Nav() {
     const [searchedInterprets, setSearchedInterprets] = useState([]);
     const shouldCloseRef = useRef(true);
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
+    const inputRef = useRef(null);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {
-        const handleResize = () => {
-            setBurger("burger-menu");
-            setHiddenNav("nav-hidden");
-            setSearchTranslate("search-div");
-            if (document.activeElement && document.activeElement.blur) {
-                document.activeElement.blur();
-            }
-        };
+        let previousWidth = window.innerWidth;
 
+        const handleResize = () => {
+            const currentWidth = window.innerWidth;
+            if ((previousWidth <= 655 && currentWidth > 655) || (previousWidth > 655 && currentWidth <= 655)) {
+                if (inputRef.current) {
+                    inputRef.current.blur();
+                }
+            }
+            previousWidth = currentWidth;
+            setWindowWidth(currentWidth);
+        }
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -114,6 +119,7 @@ function Nav() {
                         onChange={searchingPartially} 
                         onFocus={focusOn} 
                         onBlur={focusOff} 
+                        ref={inputRef}
                         className="search" 
                         type="text" 
                         placeholder='Search...' 
