@@ -1,10 +1,10 @@
 import './Nav.css';
 import { useState, useEffect, useRef } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoIcon from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import interpretsData from './data/composers.json';
-import notFoundImage from '/assets/notFound.png'
+import notFoundImage from '/assets/notFound.png';
 
 function Nav() {
     const [burgerClass, setBurger] = useState("burger-menu");
@@ -16,6 +16,7 @@ function Nav() {
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
     const inputRef = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    
     
     useEffect(() => {
         let previousWidth = window.innerWidth;
@@ -50,7 +51,7 @@ function Nav() {
             const count = 5;
             setSearchedInterprets(
                 interpretsData
-                    .filter(interpret => (interpret.name).toLowerCase().includes(value.toLowerCase()))
+                    .filter(interpret => (interpret.name).toLowerCase().startsWith(value.toLowerCase()))
                     .slice(0, count)
             );
         } else {
@@ -94,12 +95,10 @@ function Nav() {
     }
 
     const handleSearchResultMouseDown = (e) => {
-        // Prevent the input from losing focus when clicking on search results
         shouldCloseRef.current = false;
     }
 
     const handleSearchResultMouseUp = () => {
-        // Allow closing again after the click is complete
         shouldCloseRef.current = true;
     }
 
@@ -125,7 +124,9 @@ function Nav() {
                         placeholder='Search...' 
                         autoComplete="off" 
                     />
-                    <img className="search-icon" alt="search" src={searchIcon}></img>
+                    <Link to="/" state={{searchedInterprets}}>
+                        <img className="search-icon" alt="search" src={searchIcon}></img>
+                    </Link>
                 </div>
                 
                 <div className={burgerClass} id="burger" onClick={clickBurger}>

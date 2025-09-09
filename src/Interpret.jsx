@@ -5,7 +5,6 @@ import './Interpret.css';
 function Interpret() {
   const { name: slug } = useParams();
   const [playListData, setPlayListData] = useState(null);
-  const [nameCamelFormat, setNameCamelFormat] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   
@@ -15,19 +14,16 @@ function Interpret() {
       try {
         setIsLoading(true);
         const playListModule = await import(`./data/musicData/${name}.json`);
-        console.log(playListModule);
         setPlayListData(playListModule.default);
       } catch(error) {
         console.log(`Failed to load data from: ./data/musicData/${name}.json`, error);
       } finally {
         setIsLoading(false);
-        console.log(playListData);
       }
     };
     let tempName;
     if (slug) {
       setName(normalName());
-      setNameCamelFormat(camelFormat());
       tempName = slug.split("-");
       if (tempName.length >= 2) {
         tempName[1] = tempName[1].charAt(0).toUpperCase() + tempName[1].slice(1);
@@ -71,7 +67,7 @@ function Interpret() {
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
           return(<div key={song+index}>
-            <img src="" alt="songPhoto"></img>
+            <img alt="songPhoto"></img>
             <h2>{song.song}</h2>
           </div>);
         })) : (<h2>No songs</h2>)

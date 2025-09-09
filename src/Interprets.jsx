@@ -1,16 +1,30 @@
 import data from './data/composers.json';
 import './Interprets.css';
 import play from '/assets/playCard.png';
-import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import favoriteIcon from '/assets/heart.png';
 
 function Interprets() {
-  const dataArray = data;
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
   const [numberOfLoaded, setNumberLoaded] = useState(10);
+  const [usedData, setUsedData] = useState(data);
+  const location = useLocation();
+  const searchedInterprets = location.state?.searchedInterprets; // Fixed property name
+  
 
-  const nacitajDalsie = () => {
+  // Use useEffect to update usedData when searchedInterprets changes
+  useEffect(() => {
+    if (searchedInterprets && searchedInterprets.length > 0) {
+      setUsedData(searchedInterprets);
+      setNumberLoaded(searchedInterprets.length); // Show all search results
+    } else {
+      setUsedData(data); // Reset to original data
+      setNumberLoaded(10); // Reset to initial load count
+    }
+  }, [searchedInterprets]);
+
+  const loadMore = () => {
     setNumberLoaded((prev) => prev + 10);
   };
 
@@ -18,12 +32,12 @@ function Interprets() {
   const createSlug = (name) => {
     return name
       .toLowerCase()
-      .replace(/[^a-z0-9]/g, '-') // Replace non-alphanumeric with dashes
-      .replace(/-+/g, '-') // Replace multiple dashes with single dash
-      .replace(/^-|-$/g, ''); // Remove leading/trailing dashes
+      .replace(/[^a-z0-9]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
   };
 
-  if (!dataArray || dataArray.length === 0) {
+  if (!usedData || usedData.length === 0) {
     return <div>No data found</div>;
   }
 
@@ -39,10 +53,11 @@ function Interprets() {
             <img className="card-button-img" src={play} alt="play button" />
           </div>
         </Link>
-        {dataArray.slice(0, numberOfLoaded).map((interpret, index) => {
+        
+        {usedData.slice(0, numberOfLoaded).map((interpret, index) => {
           const fileName = interpret.name.split(" ").join("_").toLowerCase();
           const slug = createSlug(interpret.name);
-          
+                   
           return (
             <Link
               to={`/interpret/${slug}`}
@@ -63,9 +78,13 @@ function Interprets() {
           );
         })}
       </div>
-      <div onClick={nacitajDalsie} className="load-button">
-        Načítať ďalšie
-      </div>
+      
+      {/* Only show load more button if we're showing original data and there's more to load */}
+      {!searchedInterprets && usedData.length > numberOfLoaded && (
+        <div onClick={loadMore} className="load-button">
+          Načítať ďalšie
+        </div>
+      )}
     </div>
   );
 }
