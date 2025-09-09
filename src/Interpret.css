@@ -3,11 +3,14 @@
     grid-template-rows: 10rem calc(100% - 10rem);
 }
 .interpret-detail {
+    margin: 0.5rem;
     display: flex;
     gap: 5%;
-    background: linear-gradient(transparent, 70%, #727272);
+    background: rgba(255, 255, 255, 0.048);
+    border-radius: 1.5rem;
     background-size: 100% 150%;
     animation: backAnim 5s ease-in-out infinite;
+    place-items: center;
 }
 
 @keyframes backAnim {
@@ -17,9 +20,10 @@
 }
 
 .interpret-detail > img {
-    height: 90%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    height: 100%;
     border-radius: 50%;
-    margin: 0.5rem 1rem;
 }
 .interpret-detail > h1 {
     place-self: center;
@@ -41,5 +45,14 @@
     }
     .interpret-detail > h1 {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .interpret-detail {
+        gap: 0;
+    }
+    .interpret-detail > h1 {
+        font-size: 1.5rem;
     }
 }

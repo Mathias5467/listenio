@@ -5,9 +5,7 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import favoriteIcon from '/assets/heart.png';
 
-function Interprets({ setInterpret }) {
-  
-  
+function Interprets() {
   const dataArray = data;
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
   const [numberOfLoaded, setNumberLoaded] = useState(10);
@@ -32,7 +30,7 @@ function Interprets({ setInterpret }) {
   return (
     <div className="interprets">
       <div className="content">
-        <Link to="/favorite" className="card">
+        <Link to="/interpret/favorite" className="card">
           <div className="favorite-div">
             <img className="card-image favorite" src={favoriteIcon} alt="heart"/>
           </div>

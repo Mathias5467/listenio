@@ -1,49 +1,88 @@
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import data from './data/composers.json';
+import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './Interpret.css';
 
 function Interpret() {
-  const { name: slug } = useParams(); // Getting the URL slug
-  console.log("Interpret component rendered with slug:", slug);
+  const { name: slug } = useParams();
+  const [playListData, setPlayListData] = useState(null);
+  const [nameCamelFormat, setNameCamelFormat] = useState("");
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   
-  // Function to create URL-friendly slug from name (same as in Interprets)
-  const createSlug = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '');
-  };
+
+  useEffect(() => {
+    const loadData = async (name) => {
+      try {
+        setIsLoading(true);
+        const playListModule = await import(`./data/musicData/${name}.json`);
+        console.log(playListModule);
+        setPlayListData(playListModule.default);
+      } catch(error) {
+        console.log(`Failed to load data from: ./data/musicData/${name}.json`, error);
+      } finally {
+        setIsLoading(false);
+        console.log(playListData);
+      }
+    };
+    let tempName;
+    if (slug) {
+      setName(normalName());
+      setNameCamelFormat(camelFormat());
+      tempName = slug.split("-");
+      if (tempName.length >= 2) {
+        tempName[1] = tempName[1].charAt(0).toUpperCase() + tempName[1].slice(1);
+      }
+      tempName = tempName.join("");
+    }
+    loadData(tempName);
+  }, [slug]);
+
+  const normalName = () => {
+    let tempName = slug.split("-"); 
+    if (tempName.length >= 2) {
+      tempName[0] = tempName[0].charAt(0).toUpperCase() + tempName[0].slice(1);
+      tempName[1] = tempName[1].charAt(0).toUpperCase() + tempName[1].slice(1);
+    }
+    return tempName.join(" ");
+  }
   
-  // Find the interpret by matching the slug with the name
-  const interpret = data.find(item => createSlug(item.name) === slug);
   
-  if (!interpret) {
+
+  if (!name) {
     return (
       <div>
         <h1>Interpret not found</h1>
-        <p>Could not find interpret with slug: {slug}</p>
+        <p>Could not find interpret: {slug}</p>
         <Link to="/">← Back to all interprets</Link>
       </div>
     );
   }
 
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
-  const fileName = interpret.name.split(" ").join("_").toLowerCase();
+  const fileName = name.split(" ").join("_").toLowerCase();
 
   return (
     <div className="interpret">
-        <div className="interpret-detail">
-            <img src={pathToImage + fileName + ".jfif"} alt={interpret.name}/>
-            <h1>{interpret.name}</h1>
-        </div>
-        <div className="playlist">
-
-        </div>
-        <div className="control-panel">
-
-        </div>
+      <div className="interpret-detail">
+        <img src={pathToImage + fileName + ".jfif"} alt={name}/>
+        <h1>{name}</h1>
+      </div>
+      <div className="playlist">
+        {(!isLoading) ? (
+          (playListData) ? (playListData.map((song, index) => {
+          return(<div key={song+index}>
+            <img src="" alt="songPhoto"></img>
+            <h2>{song.song}</h2>
+          </div>);
+        })) : (<h2>No songs</h2>)
+        ) : (
+          <h1>Loading...</h1>
+        )
+        }
+      </div>
+      <div className="control-panel">
+        {/* Your control panel content */}
+      </div>
     </div>
   );
 }
