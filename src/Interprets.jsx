@@ -7,20 +7,18 @@ import favoriteIcon from '/assets/heart.png';
 
 function Interprets() {
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
-  const [numberOfLoaded, setNumberLoaded] = useState(10);
+  const [numberLoaded, setNumberLoaded] = useState(10);
   const [usedData, setUsedData] = useState(data);
   const location = useLocation();
-  const searchedInterprets = location.state?.searchedInterprets; // Fixed property name
-  
+  const searchedInterprets = location.state?.searchedInterprets;
 
-  // Use useEffect to update usedData when searchedInterprets changes
   useEffect(() => {
     if (searchedInterprets && searchedInterprets.length > 0) {
       setUsedData(searchedInterprets);
-      setNumberLoaded(searchedInterprets.length); // Show all search results
+      setNumberLoaded(10);
     } else {
-      setUsedData(data); // Reset to original data
-      setNumberLoaded(10); // Reset to initial load count
+      setUsedData(data);
+      setNumberLoaded(10);
     }
   }, [searchedInterprets]);
 
@@ -54,7 +52,7 @@ function Interprets() {
           </div>
         </Link>
         
-        {usedData.slice(0, numberOfLoaded).map((interpret, index) => {
+        {usedData.slice(0, numberLoaded).map((interpret, index) => {
           const fileName = interpret.name.split(" ").join("_").toLowerCase();
           const slug = createSlug(interpret.name);
                    
@@ -79,8 +77,7 @@ function Interprets() {
         })}
       </div>
       
-      {/* Only show load more button if we're showing original data and there's more to load */}
-      {!searchedInterprets && usedData.length > numberOfLoaded && (
+      {usedData.length > numberLoaded && (
         <div onClick={loadMore} className="load-button">
           Načítať ďalšie
         </div>

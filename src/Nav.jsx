@@ -12,7 +12,9 @@ function Nav() {
     const [searchedTerm, setSearchedTerm] = useState("");
     const [searchTranslate, setSearchTranslate] = useState("search-div");
     const [searchedInterprets, setSearchedInterprets] = useState([]);
+    const [inputFocused, setInputFocused] = useState(false);
     const shouldCloseRef = useRef(true);
+    const navigate = useNavigate();
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
     const inputRef = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -59,6 +61,13 @@ function Nav() {
         }
     };
 
+    const checkEnter = (e) => {
+        if (inputFocused && e.key === 'Enter') {
+            focusOff();
+            navigate("/", {state: {searchedInterprets}})
+        }
+    }
+
     const clickBurger = () => {
         setBurger((prev) =>
             prev === "burger-menu"
@@ -79,6 +88,7 @@ function Nav() {
             setTimeout(() => {
                 setHiddenNav("nav-hidden show");
                 setSearchTranslate("search-div translate-div");
+                setInputFocused(true);
             }, 500);
         }
     }
@@ -90,6 +100,7 @@ function Nav() {
                 setHiddenNav("nav-hidden");
                 setSearchTranslate("search-div");
                 setBurger("burger-menu");
+                setInputFocused(false);
             }
         }, 200);
     }
@@ -117,7 +128,8 @@ function Nav() {
                         id="search" 
                         onChange={searchingPartially} 
                         onFocus={focusOn} 
-                        onBlur={focusOff} 
+                        onBlur={focusOff}
+                        onKeyDown={(e) => checkEnter(e)}
                         ref={inputRef}
                         className="search" 
                         type="text" 
