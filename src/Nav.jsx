@@ -1,7 +1,9 @@
 import './Nav.css';
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import logoIcon from "/assets/logo.svg";
+import { useContext } from "react";
+import { ThemeContext } from "./App";
+import logoIcon from "/assets/logoDark.png";
 import searchIcon from "/assets/search.png";
 import interpretsData from './data/composers.json';
 import notFoundImage from '/assets/notFound.png';
@@ -18,6 +20,8 @@ function Nav() {
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
     const inputRef = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const { isDarkMode, changeTheme } = useContext(ThemeContext);
+
     
     
     useEffect(() => {
@@ -35,7 +39,7 @@ function Nav() {
         }
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [isDarkMode]);
 
     const createSlug = (name) => {
         return name
@@ -114,12 +118,12 @@ function Nav() {
     }
 
     return(
-        <div className="nav-container">
-            <div className="nav">
+        <div className={`nav-container ${isDarkMode && "dark"}`}>
+            <div className={`nav ${isDarkMode && "dark"}`}>
                 <Link to="/" className="nav-logo-link">
                     <div className="nav-logo">
                         <img alt="logo" src={logoIcon}></img>
-                        <h1>Listenio<small><sup>&copy;</sup></small></h1>
+                        <h1 className={`nav-logo-title ${isDarkMode && "dark"}`}>Listenio<small><sup>&copy;</sup></small></h1>
                     </div>
                 </Link>
                 <div className={searchTranslate}>
@@ -131,13 +135,13 @@ function Nav() {
                         onBlur={focusOff}
                         onKeyDown={(e) => checkEnter(e)}
                         ref={inputRef}
-                        className="search" 
+                        className={`search ${isDarkMode && "dark"}`}
                         type="text" 
                         placeholder='Search...' 
                         autoComplete="off" 
                     />
                     <Link to="/" state={{searchedInterprets}}>
-                        <img className="search-icon" alt="search" src={searchIcon}></img>
+                        <img className={`search-icon ${isDarkMode && "dark"}`} alt="search" src={searchIcon}></img>
                     </Link>
                 </div>
                 
@@ -147,15 +151,14 @@ function Nav() {
                     <div className="stick" id="stick3"></div>
                 </div>
             </div>
-            <div className={hiddenNav}>
+            <div className={hiddenNav + ` ${isDarkMode && "dark"}`}>
                 <div className="nav-hidden-search">
 
                 </div>
                 <div className="search-list">
                     {searchedTerm && searchedInterprets.length === 0 ? (
                         <div className="search-list-item"> 
-                            <img src={notFoundImage} alt="not found" />
-                            <p>No results...</p>
+                            <p className={`search-list-item-title`}>No results...</p>
                         </div>
                     ) : (
                         searchedInterprets.map((interpret, index) => {
@@ -171,7 +174,7 @@ function Nav() {
                             >
                                 <div className="search-list-item"> 
                                     <img src={pathToImage + fileName + ".jfif"} alt={interpret.name} />
-                                    <p>{interpret.name}</p>
+                                    <p className={`search-list-item-title ${isDarkMode && "dark"}`}>{interpret.name}</p>
                                 </div>
                             </Link>
                         );

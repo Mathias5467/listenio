@@ -17,7 +17,9 @@
 .card {
     width: 15rem;
     height: 20rem;
-    background:  rgba(255, 255, 255, 0.048);
+    background:  transparent;
+    box-sizing: border-box;
+    border: 2px solid #3a3a3a;
     display: grid;
     grid-template-rows: 80% 20%;
     place-items: center;
@@ -25,6 +27,9 @@
     border-radius: 10px;
     transition: 0.4s ease;
     text-decoration: none;
+}
+.card.dark {
+    background:  #ffffff0c;
 }
 .card-image {
     width: 90%;
@@ -47,6 +52,9 @@
 .card-title {
     margin-top: 0rem;
     place-self: center;
+    color: #3a3a3a;
+}
+.card-title.dark {
     color: white;
 }
 
@@ -63,7 +71,7 @@
     opacity: 0;
     transition: 0.4s ease;
 }
-.card:hover {
+.card.dark:hover {
     background:  rgba(80, 80, 80, 0.63);
 }
 .card:hover .card-button {
@@ -75,7 +83,9 @@
 }
 
 .load-button {
-    border: 2px solid #ffffff;
+    border: 3px solid #3a3a3a;
+    box-sizing: border-box;
+    color: #3a3a3a;
     font-size: 1.3rem;
     font-weight: 700;
     place-self: center;
@@ -86,8 +96,12 @@
     transition: 0.4s;
     margin-bottom: 3rem;
 }
+.load-button.dark {
+    border: 3px solid #ffffff;
+    color: #ffffff;
+}
 .load-button:hover {
-    border: 2px solid #20b1d5;
+    border: 3px solid #20b1d5;
     color: #20b1d5;
 }
 

@@ -1,7 +1,8 @@
 import data from './data/composers.json';
 import './Interprets.css';
 import play from '/assets/playCard.png';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from './App';
 import { Link, useLocation } from "react-router-dom";
 import favoriteIcon from '/assets/heart.png';
 
@@ -11,6 +12,7 @@ function Interprets() {
   const [usedData, setUsedData] = useState(data);
   const location = useLocation();
   const searchedInterprets = location.state?.searchedInterprets;
+  const { isDarkMode, changeTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (searchedInterprets && searchedInterprets.length > 0) {
@@ -42,11 +44,11 @@ function Interprets() {
   return (
     <div className="interprets">
       <div className="content">
-        <Link to="/interpret/favorite" className="card">
+        <Link to="/interpret/favorite" className={`card ${isDarkMode && "dark"}`}>
           <div className="favorite-div">
             <img className="card-image favorite" src={favoriteIcon} alt="heart"/>
           </div>
-          <h2 className="card-title">Favorite</h2>
+          <h2 className={`card-title ${isDarkMode && "dark"}`}>Favorite</h2>
           <div className="card-button">
             <img className="card-button-img" src={play} alt="play button" />
           </div>
@@ -60,7 +62,7 @@ function Interprets() {
             <Link
               to={`/interpret/${slug}`}
               key={`${interpret.name}-${index}`}
-              className="card"
+              className={`card ${isDarkMode && "dark"}`}
               id={fileName}
             >
               <img
@@ -68,7 +70,7 @@ function Interprets() {
                 src={pathToImage + fileName + ".jfif"}
                 alt={interpret.name}
               />
-              <h2 className="card-title">{interpret.name}</h2>
+              <h2 className={`card-title ${isDarkMode && "dark"}`}>{interpret.name}</h2>
               <div className="card-button">
                 <img className="card-button-img" src={play} alt="play button" />
               </div>
@@ -78,7 +80,7 @@ function Interprets() {
       </div>
       
       {usedData.length > numberLoaded && (
-        <div onClick={loadMore} className="load-button">
+        <div onClick={loadMore} className={`load-button ${isDarkMode && "dark"}`}>
           Načítať ďalšie
         </div>
       )}
