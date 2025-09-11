@@ -38,6 +38,7 @@
 }
 .favorite-icon {
     width: 3rem;
+    cursor: pointer;
 }
 
 .playlist {
@@ -92,7 +93,10 @@
     .interpret {
         grid-template-rows: 7rem calc(100% - 7rem);
     }
-    .interpret-detail > img {
+    .favorite-icon {
+        width: 2rem;
+    }
+    .interpret-detail-photo {
         height: 90%;
         border-radius: 50%;
         margin: 0.5rem 1rem;

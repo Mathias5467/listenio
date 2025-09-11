@@ -11,7 +11,7 @@ function Interpret() {
   const [isLoading, setIsLoading] = useState(true);
   const { isDarkMode, changeTheme } = useContext(ThemeContext);
   const { favoriteInterprets, configureFavorite} = useContext(FavoriteContext);
-  const [favoriteImage, setFavoriteImage] = useState("Active");
+  const [favoriteImage, setFavoriteImage] = useState("");
   useEffect(() => { 
     const loadData = async (name) => {
       try {
@@ -71,7 +71,7 @@ function Interpret() {
       <div className={`interpret-detail ${isDarkMode && "dark"}`}>
         <img className="interpret-detail-photo" src={pathToImage + fileName + ".jfif"} alt={name}/>
         <h1>{name}</h1>
-        <img onClick={favoriteClick} className={`favorite-icon`} src={`${pathAssets}/heart${isDarkMode ? "Dark" : "Light"}.png`} alt="favorite-image"></img>
+        <img onClick={favoriteClick} className={`favorite-icon`} src={`${pathAssets}/heart${isDarkMode ? "Dark" : "Light"}${favoriteImage}.png`} alt="favorite-image"></img>
       </div>
       <div className="playlist">
         {(!isLoading) ? (
