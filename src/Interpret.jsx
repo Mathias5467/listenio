@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Interpret.css';
+import tempAlbumCover from '/assets/interprets/shawn_mendes.jfif';
 
 function Interpret() {
   const { name: slug } = useParams();
@@ -66,9 +67,10 @@ function Interpret() {
       <div className="playlist">
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
-          return(<div key={song+index}>
-            <img alt="songPhoto"></img>
-            <h2>{song.song}</h2>
+          return(<div key={song+index} className="playlist-item">
+            <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
+            <img className="playlist-item-img" alt="songPhoto" src={tempAlbumCover}></img>
+            <h2 className="playlist-item-title">{song.song}</h2>
           </div>);
         })) : (<h2>No songs</h2>)
         ) : (
