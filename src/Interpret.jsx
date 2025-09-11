@@ -63,6 +63,7 @@ function Interpret() {
   }
 
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
+  const pathAssets = "https://mathias5467.github.io/listenio/assets";
   const fileName = name.split(" ").join("_").toLowerCase();
 
   return (
@@ -70,7 +71,7 @@ function Interpret() {
       <div className={`interpret-detail ${isDarkMode && "dark"}`}>
         <img className="interpret-detail-photo" src={pathToImage + fileName + ".jfif"} alt={name}/>
         <h1>{name}</h1>
-        <img onClick={favoriteClick} className="favorite-icon" src={`assets/heart${favoriteImage}.png`} alt="favorite-image"></img>
+        <img onClick={favoriteClick} className={`favorite-icon`} src={`${pathAssets}/heart${favoriteImage}.png`} alt="favorite-image"></img>
       </div>
       <div className="playlist">
         {(!isLoading) ? (
