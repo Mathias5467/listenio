@@ -6,7 +6,6 @@ import { ThemeContext } from "./App";
 import logoIcon from "/assets/logoDark.png";
 import searchIcon from "/assets/search.png";
 import interpretsData from './data/composers.json';
-import notFoundImage from '/assets/notFound.png';
 
 function Nav() {
     const [burgerClass, setBurger] = useState("burger-menu");
@@ -156,9 +155,9 @@ function Nav() {
 
                 </div>
                 <div className="search-list">
-                    {searchedTerm && searchedInterprets.length === 0 ? (
+                    {(searchedTerm && searchedInterprets.length === 0) || (searchedTerm == "") ? (
                         <div className="search-list-item"> 
-                            <p className={`search-list-item-title`}>No results...</p>
+                            <p className={`search-list-item-title ${isDarkMode && "dark"}`}>No results...</p>
                         </div>
                     ) : (
                         searchedInterprets.map((interpret, index) => {

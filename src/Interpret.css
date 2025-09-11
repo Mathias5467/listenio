@@ -8,33 +8,37 @@
 .interpret-detail {
     margin: 0.5rem;
     display: flex;
+    box-sizing: border-box;
+    border: 3px solid #3a3a3a;
+    background: transparent;
     gap: 5%;
-    background: #ffffff0c;
     box-shadow: 0 0 7px #adadad;
     border-radius: 1.5rem;
-    background-size: 100% 150%;
-    animation: backAnim 5s ease-in-out infinite;
     place-items: center;
 }
-
-@keyframes backAnim {
-    0% { background-position: 0% 0%;}
-    50%{  background-position: 0% 50%; }
-    100% {  background-position: 0% 0%; }
+.interpret-detail.dark {
+    background: #ffffff0c;
+    border-color: transparent;
 }
 
-.interpret-detail > img {
+.interpret-detail-photo {
     padding: 0.5rem;
     box-sizing: border-box;
     height: 100%;
     border-radius: 50%;
 }
 .interpret-detail > h1 {
+    color: #3a3a3a;
     place-self: center;
     font-size: 3rem;
     transition: 0.3s;
 }
-
+.interpret-detail.dark > h1 {
+    color: #ffffff;
+}
+.favorite-icon {
+    width: 5rem;
+}
 
 .playlist {
     display: flex;
@@ -51,14 +55,23 @@
     gap: 1rem;
     cursor: pointer;
     transition: 0.3s;
+    color: #3a3a3a;
+}
+.playlist-item.dark {
+    color: #ffffff;
 }
 .playlist-item:hover {
+    background: #3a3a3a2b;
+}
+.playlist-item.dark:hover {
     background: #ffffff0c;
 }
 .playlist-item-order-number {
     font-size: 1.2rem;
+    text-align: center;
 }
 .playlist-item-title {
+    padding-left: 0.4rem; 
     font-size: 1.4rem;
 }
 .playlist-item-title, .playlist-item-order-number {

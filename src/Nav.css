@@ -60,6 +60,9 @@
 .search-link {
     text-decoration: none;
 }
+.search-link.dark {
+    color: white;
+}
 .search-list {
     box-sizing: border-box;
 }
@@ -85,7 +88,7 @@
     font-size: 1.3rem;
     margin: 0;
 }
-.search-list-title.dark {
+.search-list-item-title.dark {
     color: white;
 }
 

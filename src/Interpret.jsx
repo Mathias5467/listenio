@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { ThemeContext, FavoriteContext } from './App';
 import './Interpret.css';
 import tempAlbumCover from '/assets/interprets/shawn_mendes.jfif';
 
@@ -8,9 +9,10 @@ function Interpret() {
   const [playListData, setPlayListData] = useState(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  
-
-  useEffect(() => {
+  const { isDarkMode, changeTheme } = useContext(ThemeContext);
+  const { favoriteInterprets, configureFavorite} = useContext(FavoriteContext);
+  const [favoriteImage, setFavoriteImage] = useState("Active");
+  useEffect(() => { 
     const loadData = async (name) => {
       try {
         setIsLoading(true);
@@ -43,6 +45,11 @@ function Interpret() {
     return tempName.join(" ");
   }
   
+  const favoriteClick = () => {
+    (prev) => { 
+      !prev ? setFavoriteImage("Active") : setFavoriteImage("");
+    }
+  }
   
 
   if (!name) {
@@ -60,14 +67,15 @@ function Interpret() {
 
   return (
     <div className="interpret">
-      <div className="interpret-detail">
-        <img src={pathToImage + fileName + ".jfif"} alt={name}/>
+      <div className={`interpret-detail ${isDarkMode && "dark"}`}>
+        <img className="interpret-detail-photo" src={pathToImage + fileName + ".jfif"} alt={name}/>
         <h1>{name}</h1>
+        <img onClick={favoriteClick} className="favorite-icon" src={`assets/heart${favoriteImage}.png`} alt="favorite-image"></img>
       </div>
       <div className="playlist">
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
-          return(<div key={song+index} className="playlist-item">
+          return(<div key={song+index} className={`playlist-item ${isDarkMode && "dark"}`}>
             <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
             <img className="playlist-item-img" alt="songPhoto" src={tempAlbumCover}></img>
             <h2 className="playlist-item-title">{song.song}</h2>
