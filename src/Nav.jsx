@@ -117,12 +117,12 @@ function Nav() {
     }
 
     return(
-        <div className={`nav-container ${isDarkMode && "dark"}`}>
-            <div className={`nav ${isDarkMode && "dark"}`}>
+        <div className={`nav-container ${isDarkMode ? "dark" : ""}`.trim()}>
+            <div className={`nav ${isDarkMode ? "dark" : ""}`.trim()}>
                 <Link to="/" className="nav-logo-link">
                     <div className="nav-logo">
                         <img alt="logo" src={logoIcon}></img>
-                        <h1 className={`nav-logo-title ${isDarkMode && "dark"}`}>Listenio<small><sup>&copy;</sup></small></h1>
+                        <h1 className={`nav-logo-title ${isDarkMode ? "dark" : ""}`.trim()}>Listenio<small><sup>&copy;</sup></small></h1>
                     </div>
                 </Link>
                 <div className={searchTranslate}>
@@ -134,13 +134,13 @@ function Nav() {
                         onBlur={focusOff}
                         onKeyDown={(e) => checkEnter(e)}
                         ref={inputRef}
-                        className={`search ${isDarkMode && "dark"}`}
+                        className={`search ${isDarkMode ? "dark" : ""}`.trim()}
                         type="text" 
                         placeholder='Search...' 
                         autoComplete="off" 
                     />
                     <Link to="/" state={{searchedInterprets}}>
-                        <img className={`search-icon ${isDarkMode && "dark"}`} alt="search" src={searchIcon}></img>
+                        <img className={`search-icon ${isDarkMode ? "dark" : ""}`.trim()} alt="search" src={searchIcon}></img>
                     </Link>
                 </div>
                 
@@ -150,14 +150,14 @@ function Nav() {
                     <div className="stick" id="stick3"></div>
                 </div>
             </div>
-            <div className={hiddenNav + ` ${isDarkMode && "dark"}`}>
+            <div className={hiddenNav + ` ${isDarkMode ? "dark" : ""}`}>
                 <div className="nav-hidden-search">
 
                 </div>
                 <div className="search-list">
-                    {(searchedTerm && searchedInterprets.length === 0) || (searchedTerm == "") ? (
+                    {(searchedTerm && searchedInterprets.length === 0) ? (
                         <div className="search-list-item"> 
-                            <p className={`search-list-item-title ${isDarkMode && "dark"}`}>No results...</p>
+                            <p className={`search-list-item-title ${isDarkMode ? "dark" : ""}`}>No results...</p>
                         </div>
                     ) : (
                         searchedInterprets.map((interpret, index) => {
@@ -173,7 +173,7 @@ function Nav() {
                             >
                                 <div className="search-list-item"> 
                                     <img src={pathToImage + fileName + ".jfif"} alt={interpret.name} />
-                                    <p className={`search-list-item-title ${isDarkMode && "dark"}`}>{interpret.name}</p>
+                                    <p className={`search-list-item-title ${isDarkMode ? "dark" : ""}`.trim()}>{interpret.name}</p>
                                 </div>
                             </Link>
                         );

@@ -28,13 +28,9 @@ function Interprets() {
     setNumberLoaded((prev) => prev + 10);
   };
 
-  // Function to create URL-friendly slug from name
+ 
   const createSlug = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '');
+    return name.toLowerCase().replace(" ", "-");
   };
 
   if (!usedData || usedData.length === 0) {
@@ -44,11 +40,11 @@ function Interprets() {
   return (
     <div className="interprets">
       <div className="content">
-        <Link to="/interpret/favorite" className={`card ${isDarkMode && "dark"}`}>
+        <Link to="/interpret/favorite" className={`card ${isDarkMode ? "dark" : ""}`.trim()}>
           <div className="favorite-div">
             <img className="card-image favorite" src={favoriteIcon} alt="heart"/>
           </div>
-          <h2 className={`card-title ${isDarkMode && "dark"}`}>Favorite</h2>
+          <h2 className={`card-title ${isDarkMode ? "dark" : ""}`.trim()}>Favorite</h2>
           <div className="card-button">
             <img className="card-button-img" src={play} alt="play button" />
           </div>
@@ -62,7 +58,7 @@ function Interprets() {
             <Link
               to={`/interpret/${slug}`}
               key={`${interpret.name}-${index}`}
-              className={`card ${isDarkMode && "dark"}`}
+              className={`card ${isDarkMode ? "dark" : ""}`.trim()}
               id={fileName}
             >
               <img
@@ -70,7 +66,7 @@ function Interprets() {
                 src={pathToImage + fileName + ".jfif"}
                 alt={interpret.name}
               />
-              <h2 className={`card-title ${isDarkMode && "dark"}`}>{interpret.name}</h2>
+              <h2 className={`card-title ${isDarkMode ? "dark" : ""}`.trim()}>{interpret.name}</h2>
               <div className="card-button">
                 <img className="card-button-img" src={play} alt="play button" />
               </div>
@@ -80,7 +76,7 @@ function Interprets() {
       </div>
       
       {usedData.length > numberLoaded && (
-        <div onClick={loadMore} className={`load-button ${isDarkMode && "dark"}`}>
+        <div onClick={loadMore} className={`load-button ${isDarkMode ? "dark" : ""}`.trim()}>
           Načítať ďalšie
         </div>
       )}

@@ -35,7 +35,7 @@ function App() {
     <ThemeContext.Provider value={{ isDarkMode, changeTheme }}>
       <FavoriteContext.Provider value={{ favoriteInterprets, configureFavorite }}>
         <BrowserRouter basename="/listenio">
-          <div className={`container ${isDarkMode ? "dark" : ""}`}>
+          <div className={`container ${isDarkMode ? "dark" : ""}`.trim()}>
             <Nav />
             <img
               onClick={changeTheme}
