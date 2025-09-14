@@ -57,7 +57,7 @@ function Interpret() {
   }
 
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
-  const pathAssets = "https://mathias5467.github.io/listenio/assets/albumCovers/";
+  const pathAssets = "https://mathias5467.github.io/listenio/assets/covers/";
   const fileName = name.split(" ").join("_").toLowerCase();
 
   return (
