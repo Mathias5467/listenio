@@ -1,7 +1,7 @@
 import Nav from "./Nav";
 import Interprets from "./Interprets";
 import Interpret from "./Interpret";
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 import Favorite from "./Favorite";
 import { useState, createContext } from 'react';
 import darkMode from '/assets/darkMode.png';
@@ -34,7 +34,7 @@ function App() {
   return (
     <ThemeContext.Provider value={{ isDarkMode, changeTheme }}>
       <FavoriteContext.Provider value={{ favoriteInterprets, configureFavorite }}>
-        <BrowserRouter basename="/listenio">
+        <HashRouter>
           <div className={`container ${isDarkMode ? "dark" : ""}`.trim()}>
             <Nav />
             <img
@@ -49,7 +49,7 @@ function App() {
               <Route path="/interpret/favorite" element={<Favorite />} />
             </Routes>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </FavoriteContext.Provider>
     </ThemeContext.Provider>
   );
