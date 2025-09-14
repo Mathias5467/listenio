@@ -57,7 +57,7 @@ function Interpret() {
   }
 
   const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
-  const pathAssets = "https://mathias5467.github.io/listenio/assets";
+  const pathAssets = "https://mathias5467.github.io/listenio/assets/albumCovers/";
   const fileName = name.split(" ").join("_").toLowerCase();
 
   return (
@@ -71,7 +71,7 @@ function Interpret() {
           (playListData) ? (playListData.map((song, index) => {
           return(<div key={song+index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
             <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
-            <img className="playlist-item-img" alt="songPhoto" src={tempAlbumCover}></img>
+            <img className="playlist-item-img" alt="songPhoto" src={pathAssets + song.album.toLowerCase() + ".png"}></img>
             <h2 className="playlist-item-title">{song.song}</h2>
           </div>);
         })) : (<h2>No songs</h2>)
