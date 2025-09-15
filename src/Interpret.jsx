@@ -7,12 +7,17 @@ function Interpret() {
   const [playListData, setPlayListData] = useState(null);
   const location = useLocation();
   const [interpretData, setInterpretData] = useState(location.state?.interpret);
-  const [favorite, setFavorite] = useState(interpretData.isFavorite);
+  const [favorite, setFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { isDarkMode } = useContext(ThemeContext);
-  const interpretImage = interpretData.name.split(" ").join("_").toLowerCase() + ".jfif";
-  const interpretImagePath = "https://mathias5467.github.io/listenio/assets/interprets/" + interpretImage;
-  const albumCoverPath = "https://mathias5467.github.io/listenio/assets/covers/";
+  const { isDarkMode, changeFavorites, favoriteInterprets } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (interpretData && favoriteInterprets) {
+      const isFav = favoriteInterprets.some(item => item.name === interpretData.name);
+      setFavorite(isFav);
+    }
+  }, [interpretData, favoriteInterprets]);
+
   useEffect(() => { 
     const loadData = async (name) => {
       try {
@@ -25,52 +30,61 @@ function Interpret() {
         setIsLoading(false);
       }
     };
-    let camelName;
-    if (interpretData.name) {
-      camelName = interpretData.name.split(" ");
+
+    if (interpretData?.name) {
+      let camelName = interpretData.name.split(" ");
       if (camelName.length >= 2) {
         camelName[0] = camelName[0].charAt(0).toLowerCase() + camelName[0].slice(1);
         camelName[1] = camelName[1].charAt(0).toUpperCase() + camelName[1].slice(1);
       }
       camelName = camelName.join("");
+      loadData(camelName);
     }
-    loadData(camelName);
-  }, [interpretData.name]);
+  }, [interpretData?.name]);
 
   if (!interpretData) {
     return (
       <div>
         <h1>Interpret not found</h1>
-        <p>Could not find interpret: {interpretData.name}</p>
+        <p>No interpret data available</p>
         <Link to="/">← Back to all interprets</Link>
       </div>
     );
   }
 
   const changeFavorite = () => {
-    setFavorite(prev => !prev);
+    const newFavoriteState = !favorite;
+    setFavorite(newFavoriteState);
+    changeFavorites(newFavoriteState, interpretData);
   }
+
+  const interpretImage = interpretData.name.split(" ").join("_").toLowerCase() + ".jfif";
+  const interpretImagePath = "https://mathias5467.github.io/listenio/assets/interprets/" + interpretImage;
+  const albumCoverPath = "https://mathias5467.github.io/listenio/assets/covers/";
 
   return (
     <div className="interpret">
       <div className={`interpret-detail ${isDarkMode ? "dark" : ""}`.trim()}>
-      <img className="interpret-detail-photo" src={interpretImagePath} alt={interpretData.name}/>
-      <h1>{interpretData.name}</h1>
-      <h2 className="interpret-detail-favorite" onClick={changeFavorite} >{favorite ? "🧡" : "🤍"}</h2>
-    </div>
+        <img className="interpret-detail-photo" src={interpretImagePath} alt={interpretData.name}/>
+        <h1>{interpretData.name}</h1>
+        <h2 className="interpret-detail-favorite" onClick={changeFavorite}>
+          {favorite ? "🧡" : "🤍"}
+        </h2>
+      </div>
       <div className="playlist">
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
-          return(<div key={song+index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
-            <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
-            <img className="playlist-item-img" alt="songPhoto" src={albumCoverPath + song.album.toLowerCase() + ".png"}></img>
-            <h2 className="playlist-item-title">{song.song}</h2>
-          </div>);
-        })) : (<h2>No songs</h2>)
+            return(
+              <div key={song.song + index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
+                <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
+                <img className="playlist-item-img" alt="songPhoto" src={albumCoverPath + song.album.toLowerCase() + ".png"} />
+                <h2 className="playlist-item-title">{song.song}</h2>
+              </div>
+            );
+          })) : (<h2>No songs</h2>)
         ) : (
           <h1>Loading...</h1>
-        )
-        }
+        )}
       </div>
       <div className="control-panel">
         {/* control panel */}

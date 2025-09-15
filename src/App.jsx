@@ -3,7 +3,7 @@ import Interprets from "./Interprets";
 import Interpret from "./Interpret";
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Favorite from "./Favorite";
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import darkMode from '/assets/darkMode.png';
 import lightMode from '/assets/lightMode.png';
 
@@ -14,6 +14,14 @@ function App() {
   const [favoriteInterprets, setFavoriteInterprets] = useState([]);
   const [themeButton, setThemeButton] = useState(lightMode);
 
+  
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('favoriteInterprets');
+    if (savedFavorites) {
+      setFavoriteInterprets(JSON.parse(savedFavorites));
+    }
+  }, []);
+
   const changeTheme = () => {
     setIsDarkMode((prev) => !prev);
     setThemeButton(isDarkMode ? darkMode : lightMode);
@@ -21,19 +29,27 @@ function App() {
 
   const changeFavorites = (addInterpret, interpret) => {
     if (interpret !== undefined) {
-      if (addInterpret) {
-        if (!favoriteInterprets.includes(interpret)) {
-          setFavoriteInterprets(prev => [...prev, interpret])
+      setFavoriteInterprets(prev => {
+        let newFavorites;
+        if (addInterpret) {
+          const exists = prev.some(item => item.name === interpret.name);
+          if (exists) return prev;
+          newFavorites = [...prev, interpret];
+        } else {
+          newFavorites = prev.filter(item => item.name !== interpret.name);
         }
-      }
-      let tempInterprets = [...favoriteInterprets];
-      tempInterprets.filter(item => item !== interpret);
-      setFavoriteInterprets(tempInterprets);
+        
+        
+        localStorage.setItem('favoriteInterprets', JSON.stringify(newFavorites));
+        return newFavorites;
+      });
     }
   }
 
+  
+
   return (
-    <ThemeContext.Provider value={{ isDarkMode }}>
+    <ThemeContext.Provider value={{ isDarkMode, changeFavorites, favoriteInterprets }}>
       <HashRouter>
         <div className={`container ${isDarkMode ? "dark" : ""}`.trim()}>
           <Nav />

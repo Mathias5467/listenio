@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from './App';
 import { Link, useLocation } from "react-router-dom";
 import favoriteIcon from '/assets/heart.png';
+import InterpretCard from './InterpretCard';
 
 
 function Interprets() {
@@ -67,15 +68,7 @@ function Interprets() {
               id={fileName}
               
             >
-              <img
-                className="card-image"
-                src={pathToImage + fileName + ".jfif"}
-                alt={interpret.name}
-              />
-              <h2 className={`card-title ${isDarkMode ? "dark" : ""}`.trim()}>{interpret.name}</h2>
-              <div className="card-button">
-                <img className="card-button-img" src={play} alt="play button" />
-              </div>
+              <InterpretCard interpret={interpret}></InterpretCard>
             </Link>
           );
         })}
