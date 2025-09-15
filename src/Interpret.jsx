@@ -1,16 +1,18 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { ThemeContext, FavoriteContext } from './App';
+import { ThemeContext } from './App';
 import './Interpret.css';
-import tempAlbumCover from '/assets/interprets/shawn_mendes.jfif';
 
 function Interpret() {
-  const { name: slug } = useParams();
   const [playListData, setPlayListData] = useState(null);
-  const [name, setName] = useState("");
+  const location = useLocation();
+  const [interpretData, setInterpretData] = useState(location.state?.interpret);
+  const [favorite, setFavorite] = useState(interpretData.isFavorite);
   const [isLoading, setIsLoading] = useState(true);
-  const { isDarkMode, changeTheme } = useContext(ThemeContext);
-
+  const { isDarkMode } = useContext(ThemeContext);
+  const interpretImage = interpretData.name.split(" ").join("_").toLowerCase() + ".jfif";
+  const interpretImagePath = "https://mathias5467.github.io/listenio/assets/interprets/" + interpretImage;
+  const albumCoverPath = "https://mathias5467.github.io/listenio/assets/covers/";
   useEffect(() => { 
     const loadData = async (name) => {
       try {
@@ -23,55 +25,45 @@ function Interpret() {
         setIsLoading(false);
       }
     };
-    let tempName;
-    if (slug) {
-      setName(normalName());
-      tempName = slug.split("-");
-      if (tempName.length >= 2) {
-        tempName[1] = tempName[1].charAt(0).toUpperCase() + tempName[1].slice(1);
+    let camelName;
+    if (interpretData.name) {
+      camelName = interpretData.name.split(" ");
+      if (camelName.length >= 2) {
+        camelName[0] = camelName[0].charAt(0).toLowerCase() + camelName[0].slice(1);
+        camelName[1] = camelName[1].charAt(0).toUpperCase() + camelName[1].slice(1);
       }
-      tempName = tempName.join("");
+      camelName = camelName.join("");
     }
-    loadData(tempName);
-  }, [slug]);
+    loadData(camelName);
+  }, [interpretData.name]);
 
-  const normalName = () => {
-    let tempName = slug.split("-"); 
-    if (tempName.length >= 2) {
-      tempName[0] = tempName[0].charAt(0).toUpperCase() + tempName[0].slice(1);
-      tempName[1] = tempName[1].charAt(0).toUpperCase() + tempName[1].slice(1);
-    }
-    return tempName.join(" ");
-  }
-
-  
-
-  if (!name) {
+  if (!interpretData) {
     return (
       <div>
         <h1>Interpret not found</h1>
-        <p>Could not find interpret: {slug}</p>
+        <p>Could not find interpret: {interpretData.name}</p>
         <Link to="/">← Back to all interprets</Link>
       </div>
     );
   }
 
-  const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
-  const pathAssets = "https://mathias5467.github.io/listenio/assets/covers/";
-  const fileName = name.split(" ").join("_").toLowerCase();
+  const changeFavorite = () => {
+    setFavorite(prev => !prev);
+  }
 
   return (
     <div className="interpret">
       <div className={`interpret-detail ${isDarkMode ? "dark" : ""}`.trim()}>
-        <img className="interpret-detail-photo" src={pathToImage + fileName + ".jfif"} alt={name}/>
-        <h1>{name}</h1>
-      </div>
+      <img className="interpret-detail-photo" src={interpretImagePath} alt={interpretData.name}/>
+      <h1>{interpretData.name}</h1>
+      <h2 className="interpret-detail-favorite" onClick={changeFavorite} >{favorite ? "🧡" : "🤍"}</h2>
+    </div>
       <div className="playlist">
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
           return(<div key={song+index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
             <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
-            <img className="playlist-item-img" alt="songPhoto" src={pathAssets + song.album.toLowerCase() + ".png"}></img>
+            <img className="playlist-item-img" alt="songPhoto" src={albumCoverPath + song.album.toLowerCase() + ".png"}></img>
             <h2 className="playlist-item-title">{song.song}</h2>
           </div>);
         })) : (<h2>No songs</h2>)

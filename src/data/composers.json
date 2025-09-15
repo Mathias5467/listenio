@@ -1,107 +1,142 @@
 [
-{
-    "name": "Shawn Mendes"
-},
-{
-    "name": "Adele"
-},
-{
-    "name": "Andy Grammer"
-},
-{
-    "name": "Ariana Grande"
-},
-{
-    "name": "Billie Eilish"
-},
-{
-    "name": "Bruno Mars"
-},
-{
-    "name": "Camila Cabello"
-},
-{
-    "name": "Charlie Puth"
-},
-{
-    "name": "Dua Lipa"
-},
-{
-    "name": "Ed Sheeran"
-},
-{
-    "name": "Elton John"
-},
-{
-    "name": "Elvis Presley"
-},
-{
-    "name": "Gwen Stefani"
-},
-{
-    "name": "Harry Styles"
-},
-{
-    "name": "Imagine Dragons"
-},
-{
-    "name": "Jason Mraz"
-},
-{
-    "name": "John Legend"
-},
-{
-    "name": "Jonas Brothers"
-},
-{
-    "name": "Justin Bieber"
-},
-{
-    "name": "Justin Timberlake"
-},
-{
-    "name": "Kanye West"
-},
-{
-    "name": "Katty Perry"
-},
-{
-    "name": "Lady Gaga"
-},
-{
-    "name": "Lewis Capaldi"
-},
-{
-    "name": "Meduza"
-},
-{
-    "name": "Michael Jackson"
-},
-{
-    "name": "One Republic"
-},
-{
-    "name": "Queen"
-},
-{
-    "name": "Rihanna"
-},
-{
-    "name": "Selena Gomez"
-},
-{
-    "name": "Shakira"
-},
-{
-    "name": "Taylor Swift"
-},
-{
-    "name": "The Beatles"
-},
-{
-    "name": "The Lumineers"
-},
-{
-    "name": "Tom Grennan"
-}
+  {
+    "name": "Shawn Mendes",
+    "isFavorite": false
+  },
+  {
+    "name": "Adele",
+    "isFavorite": false
+  },
+  {
+    "name": "Andy Grammer",
+    "isFavorite": false
+  },
+  {
+    "name": "Ariana Grande",
+    "isFavorite": false
+  },
+  {
+    "name": "Billie Eilish",
+    "isFavorite": false
+  },
+  {
+    "name": "Bruno Mars",
+    "isFavorite": false
+  },
+  {
+    "name": "Camila Cabello",
+    "isFavorite": false
+  },
+  {
+    "name": "Charlie Puth",
+    "isFavorite": false
+  },
+  {
+    "name": "Dua Lipa",
+    "isFavorite": false
+  },
+  {
+    "name": "Ed Sheeran",
+    "isFavorite": false
+  },
+  {
+    "name": "Elton John",
+    "isFavorite": false
+  },
+  {
+    "name": "Elvis Presley",
+    "isFavorite": false
+  },
+  {
+    "name": "Gwen Stefani",
+    "isFavorite": false
+  },
+  {
+    "name": "Harry Styles",
+    "isFavorite": false
+  },
+  {
+    "name": "Imagine Dragons",
+    "isFavorite": false
+  },
+  {
+    "name": "Jason Mraz",
+    "isFavorite": false
+  },
+  {
+    "name": "John Legend",
+    "isFavorite": false
+  },
+  {
+    "name": "Jonas Brothers",
+    "isFavorite": false
+  },
+  {
+    "name": "Justin Bieber",
+    "isFavorite": false
+  },
+  {
+    "name": "Justin Timberlake",
+    "isFavorite": false
+  },
+  {
+    "name": "Kanye West",
+    "isFavorite": false
+  },
+  {
+    "name": "Katty Perry",
+    "isFavorite": false
+  },
+  {
+    "name": "Lady Gaga",
+    "isFavorite": false
+  },
+  {
+    "name": "Lewis Capaldi",
+    "isFavorite": false
+  },
+  {
+    "name": "Meduza",
+    "isFavorite": false
+  },
+  {
+    "name": "Michael Jackson",
+    "isFavorite": false
+  },
+  {
+    "name": "One Republic",
+    "isFavorite": false
+  },
+  {
+    "name": "Queen",
+    "isFavorite": false
+  },
+  {
+    "name": "Rihanna",
+    "isFavorite": false
+  },
+  {
+    "name": "Selena Gomez",
+    "isFavorite": false
+  },
+  {
+    "name": "Shakira",
+    "isFavorite": false
+  },
+  {
+    "name": "Taylor Swift",
+    "isFavorite": false
+  },
+  {
+    "name": "The Beatles",
+    "isFavorite": false
+  },
+  {
+    "name": "The Lumineers",
+    "isFavorite": false
+  },
+  {
+    "name": "Tom Grennan",
+    "isFavorite": false
+  }
 ]

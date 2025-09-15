@@ -19,7 +19,7 @@ function Nav() {
     const pathToImage = "https://mathias5467.github.io/listenio/assets/interprets/";
     const inputRef = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const { isDarkMode, changeTheme } = useContext(ThemeContext);
+    const { isDarkMode } = useContext(ThemeContext);
 
     
     
@@ -41,11 +41,7 @@ function Nav() {
     }, [isDarkMode]);
 
     const createSlug = (name) => {
-        return name
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, '-') // Replace non-alphanumeric with dashes
-        .replace(/-+/g, '-') // Replace multiple dashes with single dash
-        .replace(/^-|-$/g, ''); // Remove leading/trailing dashes
+        return name.toLowerCase().replace(" ", "-");
     };
 
     const searchingPartially = (e) => {
@@ -92,7 +88,7 @@ function Nav() {
                 setHiddenNav("nav-hidden show");
                 setSearchTranslate("search-div translate-div");
                 setInputFocused(true);
-            }, 500);
+            }, 100);
         }
     }
 
@@ -150,12 +146,12 @@ function Nav() {
                     <div className="stick" id="stick3"></div>
                 </div>
             </div>
-            <div className={hiddenNav + ` ${isDarkMode ? "dark" : ""}`}>
+            <div className={(hiddenNav + ` ${isDarkMode ? "dark" : ""}`).trim()}>
                 <div className="nav-hidden-search">
 
                 </div>
                 <div className="search-list">
-                    {(searchedTerm && searchedInterprets.length === 0) ? (
+                    {(!searchedTerm && searchedInterprets.length === 0) ? (
                         <div className="search-list-item"> 
                             <p className={`search-list-item-title ${isDarkMode ? "dark" : ""}`}>No results...</p>
                         </div>

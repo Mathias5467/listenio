@@ -20,7 +20,10 @@
     background: #ffffff0c;
     border-color: transparent;
 }
-
+.interpret-detail-favorite {
+    font-size: 2.5rem;
+    cursor: pointer;
+}
 .interpret-detail-photo {
     padding: 0.5rem;
     box-sizing: border-box;
