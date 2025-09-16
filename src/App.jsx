@@ -20,12 +20,21 @@ function App() {
     if (savedFavorites) {
       setFavoriteInterprets(JSON.parse(savedFavorites));
     }
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme !== null) {
+      const isDark = savedTheme === "true";
+      setIsDarkMode(isDark);
+      setThemeButton(isDark ? darkMode : lightMode);
+    }
   }, []);
 
   const changeTheme = () => {
-    setIsDarkMode((prev) => !prev);
-    setThemeButton(isDarkMode ? darkMode : lightMode);
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    setThemeButton(newTheme ? darkMode : lightMode);
+    localStorage.setItem('isDarkMode', newTheme);
   };
+
 
   const changeFavorites = (addInterpret, interpret) => {
     if (interpret !== undefined) {
