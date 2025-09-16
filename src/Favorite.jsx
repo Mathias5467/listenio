@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from 'react-router-dom';
 import { ThemeContext } from "./App";
 import InterpretCard from "./InterpretCard";
+import './favorite.css'
 
 
 function Favorite() {
@@ -12,14 +13,13 @@ function Favorite() {
     };
 
     return(
-        <div className="content">
+        <div className="favorite-content">
         {   
             (favoriteInterprets.length > 0) ?
                 (
                 favoriteInterprets.map((interpret, index) => {
                 const fileName = interpret.name.split(" ").join("_").toLowerCase();
                 const slug = createSlug(interpret.name);
-                console.log(interpret);
                 return(
                     <Link
                     to={`/interpret/${slug}`}

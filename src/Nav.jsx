@@ -164,6 +164,7 @@ function Nav() {
                                 className="search-link"
                                 to={`/interpret/${slug}`}  
                                 key={interpret.name + index}
+                                state={{interpret}}
                                 onMouseDown={handleSearchResultMouseDown}
                                 onMouseUp={handleSearchResultMouseUp}
                             >

@@ -2,6 +2,10 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from './App';
 import './Interpret.css';
+import play from '/assets/play.png';
+import pause from '/assets/pause.png';
+import front from '/assets/front.png';
+import back from '/assets/back.png';
 
 function Interpret() {
   const [playListData, setPlayListData] = useState(null);
@@ -10,6 +14,8 @@ function Interpret() {
   const [favorite, setFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { isDarkMode, changeFavorites, favoriteInterprets } = useContext(ThemeContext);
+  const [actualSong, setActualSong] = useState();
+  const [controlPanelClassName, setControlPanelClassName] = useState("");
 
   useEffect(() => {
     if (interpretData && favoriteInterprets) {
@@ -75,7 +81,7 @@ function Interpret() {
         {(!isLoading) ? (
           (playListData) ? (playListData.map((song, index) => {
             return(
-              <div key={song.song + index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
+              <div onClick={() => {setActualSong(song); setControlPanelClassName("show")}} key={song.song + index} className={`playlist-item ${isDarkMode ? "dark" : ""}`.trim()}>
                 <h2 className="playlist-item-order-number">{`${index + 1}.`}</h2>
                 <img className="playlist-item-img" alt="songPhoto" src={albumCoverPath + song.album.toLowerCase() + ".png"} />
                 <h2 className="playlist-item-title">{song.song}</h2>
@@ -86,9 +92,29 @@ function Interpret() {
           <h1>Loading...</h1>
         )}
       </div>
-      <div className="control-panel">
-        {/* control panel */}
-      </div>
+      {(actualSong !== undefined) ? (
+        <div className={("control-panel " + controlPanelClassName).trim()}>
+          <img className="control-panel-img" alt="actual song" src={albumCoverPath + actualSong.album.toLowerCase() + ".png"}></img>
+          
+          <div className="control-panel-description">
+            <p>{actualSong.song}</p>
+            <p>{interpretData.name}</p>
+          </div>
+          <div className="control-icons-div">
+            <div>
+              <img className="control-icon" src={back} ></img>
+            </div>
+            <div>
+              <img className="control-icon" src={play} ></img>
+            </div>
+            <div>
+              <img className="control-icon" src={front} ></img>
+            </div>
+          </div>
+            
+        </div>
+      ) : ("")}
+      
     </div>
   );
 }
