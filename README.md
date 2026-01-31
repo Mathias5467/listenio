@@ -1,6 +1,6 @@
 # Listenio 🎧
 
-**Listenio** is a Spotify-like app where users can **search interprets (artists)** and **add them to favorites**.
+**Listenio** is a Spotify-like app.
 
 ## Features
 - 🔎 Search interprets by name
